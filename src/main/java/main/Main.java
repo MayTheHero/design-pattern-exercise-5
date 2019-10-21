@@ -1,5 +1,6 @@
 package main;
 
+import product.DiscountType;
 import product.Product;
 import product.ProductService;
 
@@ -26,19 +27,21 @@ public class Main {
         List<Product> products =
                 Arrays.asList(productOne,productTwo,productThree,productFour);
 
+        ProductService productService = new ProductService();
+
 
         System.out.println("Christmas time ...");
-        products.forEach(p->p.setDiscount(ProductService.christmasDiscount(p.getCost())));
+        products.forEach(p -> productService.giveProperDiscount(p, DiscountType.CHRISTMAS));
         products.forEach(p->p.showProductInfo());
 
 
         System.out.println("\n\nNew Yer time ...");
-        products.forEach(p->p.setDiscount(ProductService.newYearDiscount(p.getCost())));
+        products.forEach(p-> productService.giveProperDiscount(p, DiscountType.NEW_YEAR));
         products.forEach(p->p.showProductInfo());
 
 
         System.out.println("\n\nEaster time ...");
-        products.forEach(p->p.setDiscount(ProductService.easterDiscount(p.getCost())));
+        products.forEach(p-> productService.giveProperDiscount(p, DiscountType.EASTER));
         products.forEach(p->p.showProductInfo());
 
     }

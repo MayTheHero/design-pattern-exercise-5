@@ -1,16 +1,24 @@
 package product;
 
 public class ProductService {
-    public static double christmasDiscount(double cost){
-        return 0.15 * cost;
+
+    private DiscountStrategy christmasDiscount;
+    private DiscountStrategy easterDiscount;
+    private DiscountStrategy newYearDiscount;
+
+    public ProductService() {
+        christmasDiscount = new ChristmasDiscount();
+        easterDiscount = new EasterDiscount();
+        newYearDiscount = new NewYearDiscount();
     }
 
-    public static double easterDiscount(double cost){
-        return 0.10 * cost;
+    public void giveProperDiscount (Product product, DiscountType discountType) {
+        if (DiscountType.CHRISTMAS.equals(discountType)) {
+            product.setDiscount(christmasDiscount.giveDiscount(product.getCost()));
+        } else if (DiscountType.EASTER.equals(discountType)) {
+            product.setDiscount(easterDiscount.giveDiscount(product.getCost()));
+        } else {
+            product.setDiscount(newYearDiscount.giveDiscount(product.getCost()));
+        }
     }
-
-    public static double newYearDiscount(double cost){
-        return 0.2 * cost;
-    }
-
 }
